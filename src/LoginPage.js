@@ -1,17 +1,40 @@
 import React, { useState } from 'react';
+import logo from './Logo1.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false); 
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePassword = (password) => {
+    // Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character
+    const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(String(password));
+  };
 
   const handleLogin = () => {
     if (email === '' || password === '') {
       setError('Please fill in both fields');
+    } else if (!validateEmail(email)) {
+      setError('Please enter a valid email address');
+    } else if (!validatePassword(password)) {
+      setError('Incorrect password');
     } else {
       setError(null);
       alert('Login successful!');
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -29,13 +52,17 @@ const LoginPage = () => {
         />
         <div style={styles.passwordContainer}>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="Password"
             style={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <span style={styles.eyeIcon}>👁️</span>
+          <FontAwesomeIcon
+            icon={showPassword ? faEyeSlash : faEye}
+            style={styles.eyeIcon}
+            onClick={togglePasswordVisibility}
+          />
         </div>
         <div style={styles.optionsContainer}>
           <label style={styles.rememberMe}>
@@ -56,7 +83,9 @@ const Header = () => {
   return (
     <div style={styles.header}>
       <div style={styles.leftSection}>
-        <a href="#" style={styles.logoLink}>[LOGO]</a>
+        <a href="#" style={styles.logoLink}>
+          <img src={logo} alt="Logo" style={styles.logo} />
+        </a>
         <div style={styles.nav}>
           <a href="#" style={styles.navLink}>Home</a>
           <a href="#" style={styles.navLink}>About Us</a>
@@ -112,6 +141,7 @@ const styles = {
     right: '10px',
     transform: 'translateY(-50%)',
     cursor: 'pointer',
+    userSelect: 'none',
   },
   optionsContainer: {
     display: 'flex',
@@ -131,7 +161,7 @@ const styles = {
     width: '100%',
     padding: '10px',
     fontSize: '16px',
-    backgroundColor: '#007bff',
+    backgroundColor: '#2ECC71',
     color: '#ffffff',
     border: 'none',
     borderRadius: '4px',
@@ -152,7 +182,7 @@ const styles = {
   leftSection: {
     display: 'flex',
     alignItems: 'center',
-    gap: '30px', // Adjust this value to control spacing between the logo and nav links
+    gap: '30px',
   },
   logoLink: {
     textDecoration: 'none',
@@ -160,14 +190,18 @@ const styles = {
     fontSize: '24px',
     fontWeight: 'bold',
   },
+  logo: {
+    width: '70px',
+    height: 'auto',
+  },
   nav: {
     display: 'flex',
     gap: '20px',
   },
   navLink: {
     textDecoration: 'none',
-    color: '#5a00ff',
     fontWeight: '500',
+    color: '#2ECC71',
   },
   rightOptions: {
     display: 'flex',
@@ -181,7 +215,7 @@ const styles = {
     cursor: 'pointer',
   },
   signUpButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#2ECC71',
     color: '#ffffff',
     border: 'none',
     padding: '5px 10px',
