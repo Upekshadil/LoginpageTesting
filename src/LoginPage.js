@@ -7,7 +7,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateEmail = (email) => {
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -42,6 +42,7 @@ const LoginPage = () => {
       <Header />
       <div style={styles.loginBox}>
         <h2 style={styles.title}>Account Log In</h2>
+        <h2 style={styles.subTitle}>PLEASE LOGIN TO CONTINUE TO YOUR ACCOUNT</h2>
         {error && <p style={styles.error}>{error}</p>}
         <input
           type="email"
@@ -97,7 +98,6 @@ const Header = () => {
       <div style={styles.rightOptions}>
         <button style={styles.languageButton}>Language</button>
         <button style={styles.signUpButton}>Sign Up</button>
-        <button style={styles.loginButtonHeader}>Login</button>
       </div>
     </div>
   );
@@ -113,8 +113,8 @@ const styles = {
     backgroundColor: '#f4f4f4',
   },
   loginBox: {
-    width: '300px',
-    padding: '30px',
+    width: '400px',  // Increased width for the container
+    padding: '40px',  // Increased padding for the container
     backgroundColor: '#ffffff',
     boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.2)',
     borderRadius: '8px',
@@ -122,13 +122,18 @@ const styles = {
   },
   title: {
     marginBottom: '20px',
-    fontSize: '24px',
+    fontSize: '32px',  // Increased font size for the title
+  },
+  subTitle: {
+    marginBottom: '20px',
+    fontSize: '16px',  // Increased font size for the subtitle
+    fontWeight: 'normal',
   },
   input: {
     width: '100%',
-    padding: '10px',
+    padding: '12px',  
     marginBottom: '15px',
-    fontSize: '16px',
+    fontSize: '18px',  
     borderRadius: '4px',
     border: '1px solid #cccccc',
   },
@@ -159,8 +164,8 @@ const styles = {
   },
   loginButton: {
     width: '100%',
-    padding: '10px',
-    fontSize: '16px',
+    padding: '12px',  
+    fontSize: '18px',  
     backgroundColor: '#2ECC71',
     color: '#ffffff',
     border: 'none',
@@ -173,7 +178,7 @@ const styles = {
     alignItems: 'center',
     width: '100%',
     padding: '10px 20px',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#FFFFFF',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
     position: 'fixed',
     top: 0,
@@ -213,6 +218,7 @@ const styles = {
     padding: '5px 10px',
     borderRadius: '4px',
     cursor: 'pointer',
+    marginLeft: '10px',
   },
   signUpButton: {
     backgroundColor: '#2ECC71',
@@ -221,14 +227,7 @@ const styles = {
     padding: '5px 10px',
     borderRadius: '4px',
     cursor: 'pointer',
-  },
-  loginButtonHeader: {
-    backgroundColor: '#ffffff',
-    color: '#007bff',
-    border: '1px solid #007bff',
-    padding: '5px 10px',
-    borderRadius: '4px',
-    cursor: 'pointer',
+    marginRight: '10px',
   },
   error: {
     color: 'red',
